@@ -1,0 +1,19 @@
+# Comment remover for Python
+https://pbizopoulos.github.io/comment-remover
+
+# Requirements
+POSIX Utilities
+Git
+Docker
+
+# Download
+git clone https://github.com/pbizopoulos/comment-remover
+cd comment-remover/
+
+# Development
+cd docs/ && make clean check all && cd ..
+cd python/python/ && make clean check all && cd ../..
+cd python/ && make clean check all && cd ..
+
+# Staging
+cd docs/ && make DEBUG=0
