@@ -5,8 +5,12 @@ from python.main import naming_convention
 
 
 class Tests(unittest.TestCase):
-    def test_naming_convention(self: "Tests") -> None:
+    def test_function(self: "Tests") -> None:
         with Path("prm/test_function.py").open(encoding="utf-8") as file:
+            naming_convention(file)
+
+    def test_variable(self: "Tests") -> None:
+        with Path("prm/test_variable.py").open(encoding="utf-8") as file:
             naming_convention(file)
 
 
