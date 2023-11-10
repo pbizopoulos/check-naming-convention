@@ -6,7 +6,7 @@ from python.main import naming_convention
 
 class Tests(unittest.TestCase):
     def test_naming_convention(self: "Tests") -> None:
-        with Path("prm/sample.py").open(encoding="utf-8") as file:
+        with Path("prm/test_function.py").open(encoding="utf-8") as file:
             naming_convention(file)
 
 

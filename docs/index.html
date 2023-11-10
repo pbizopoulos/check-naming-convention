@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <title>Comment remover</title>
+        <link href="data:," rel="icon">
+        <link href="https://pyscript.net/latest/pyscript.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        <py-config src="./prm/index.toml"></py-config>
+    </head>
+
+    <body>
+        <nav>
+            <a href="https://github.com/pbizopoulos/comment-remover">Source code</a> | <a href="https://pbizopoulos.github.io">Home page</a> / <b>Comment remover</b>
+        </nav>
+        <h3>Installation:</h3>
+        <code>python3 -m pip install https://github.com/pbizopoulos/comment-remover/archive/main.zip#subdirectory=python/python</code>
+        <h3>Usage:</h3>
+        <code>comment_remover main.py</code>
+        <h3>Try online: </h3>
+        <div class="container">
+            <div class="column">
+                <input type="file" id="file-input">
+                <textarea class="form-control" id="input-textarea" spellcheck="false"></textarea>
+            </div>
+            <div class="column">
+                <div class="container">
+                    <div class="column">
+                        <select id="difference-select">
+                            <option value="output">Output</option>
+                            <option value="difference">Input-Output difference</option>
+                        </select>
+                    </div>
+                    <div class="column">
+                        <button id="download-output" type="submit">Download</button>
+                    </div>
+                </div>
+                <pre id="output-pre"></pre>
+            </div>
+        </div>
+        <py-script src="./prm/index.py"></py-script>
+    </body>
+
+</html>

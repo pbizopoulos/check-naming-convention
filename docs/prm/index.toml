@@ -1,0 +1,5 @@
+[[fetch]]
+from = "https://raw.githubusercontent.com/pbizopoulos/comment-remover/main/python/python/main.py"
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/pbizopoulos/comment-remover/main/python/prm/before.py"
