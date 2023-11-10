@@ -1,5 +1,4 @@
 def get_number():
-    number = 42
-    return number
+    return 42
 
 get_number()
