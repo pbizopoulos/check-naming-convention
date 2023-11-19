@@ -12,3 +12,4 @@ cd naming-convention/
 # Development
 cd python/python/ && make clean check all && cd ../..
 cd python/ && make clean check all && cd ..
+
