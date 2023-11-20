@@ -1,3 +1,7 @@
+packages = [
+  "nltk",
+]
+
 [[fetch]]
 from = "https://raw.githubusercontent.com/pbizopoulos/naming-convention/main/python/python/main.py"
 
