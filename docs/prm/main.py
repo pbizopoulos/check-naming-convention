@@ -1,10 +1,10 @@
 import io
-from difflib import unified_diff
 from pathlib import Path
 
-from js import document, Blob, window
-from main import naming_convention
+from js import document
 from pyodide.ffi.wrappers import add_event_listener
+
+from main import naming_convention
 
 
 def on_keyup_input_textarea(_: None) -> None:
@@ -13,10 +13,10 @@ def on_keyup_input_textarea(_: None) -> None:
         "input-textarea",
     ).style.height = f'{document.getElementById("input-textarea").scrollHeight}px'
     input_ = document.getElementById("input-textarea").value
-    reader = io.BufferedReader(io.BytesIO(input_.encode("utf-8")))  # type: ignore[arg-type] # noqa: E501
+    reader = io.BufferedReader(io.BytesIO(input_.encode("utf-8")))  # type: ignore[arg-type]
     wrapper = io.TextIOWrapper(reader)
     try:
-        output = naming_convention(wrapper)
+        naming_convention(wrapper)
         document.getElementById("output-pre").innerHTML = "Correct!"
     except Exception as exception:  # noqa: BLE001
         document.getElementById("output-pre").innerHTML = exception
