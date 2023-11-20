@@ -32,13 +32,13 @@ def naming_convention(code_input: str | TextIOWrapper) -> None:
             else:
                 raise AssertionError
         elif isinstance(node, ast.FunctionDef):
-            tokens = node.name.split('_')
+            tokens = node.name.split("_")
             pos_tags = nltk.pos_tag(tokens)
-            if len(pos_tags) < 2:
+            if len(pos_tags) < 2:  # noqa: PLR2004
                 raise AssertionError
-            if (pos_tags[0][1] != "VB"):
+            if pos_tags[0][1] != "VB":
                 raise AssertionError
-            if (pos_tags[1][1] != "NN"):
+            if pos_tags[1][1] != "NN":
                 raise AssertionError
 
 
