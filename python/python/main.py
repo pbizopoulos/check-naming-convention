@@ -23,23 +23,20 @@ def naming_convention(code_input: str | TextIOWrapper) -> None:
         if isinstance(node, ast.Name):
             tokens = nltk.word_tokenize(node.id)
             pos_tags = nltk.pos_tag(tokens)
-            if (
-                pos_tags
-                and pos_tags[0][1] == "NN"
+            if not (
+                pos_tags[0][1] == "NN"
                 and (len(pos_tags) == 1 or pos_tags[1][1].startswith(("JJ", "RB")))
             ):
-                assert True
-            else:
-                raise AssertionError
+                raise AssertionError(f"line: {node.lineno}, variable: {pos_tags[0][0]}")
         elif isinstance(node, ast.FunctionDef):
             tokens = node.name.split("_")
             pos_tags = nltk.pos_tag(tokens)
             if len(pos_tags) < 2:  # noqa: PLR2004
-                raise AssertionError
+                raise AssertionError(f"line: {node.lineno}, variable: {pos_tags}")
             if pos_tags[0][1] != "VB":
-                raise AssertionError
+                raise AssertionError(f"line: {node.lineno}, variable: {pos_tags[0][1]}")
             if pos_tags[1][1] != "NN":
-                raise AssertionError
+                raise AssertionError(f"line: {node.lineno}, variable: {pos_tags[1][1]}")
 
 
 def main() -> None:
