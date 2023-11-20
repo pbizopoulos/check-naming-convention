@@ -13,7 +13,7 @@ nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
 
 
-def naming_convention(code_input: str | TextIOWrapper) -> None:
+def check_naming_convention(code_input: str | TextIOWrapper) -> None:
     if isinstance(code_input, str):
         with Path(code_input).open() as file:
             root = ast.parse(file.read())
@@ -52,7 +52,7 @@ def naming_convention(code_input: str | TextIOWrapper) -> None:
 def main() -> None:
     num_arguments_allowed = 2
     if len(sys.argv) == num_arguments_allowed:
-        naming_convention(sys.argv[1])
+        check_naming_convention(sys.argv[1])
 
 
 if __name__ == "__main__":

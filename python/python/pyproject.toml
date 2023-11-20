@@ -2,7 +2,7 @@
 dependencies = [
   "nltk==3.8.1"
 ]
-name = "naming-convention"
+name = "check-naming-convention"
 version = "0.0.0"
 
 [project.optional-dependencies]
@@ -16,7 +16,7 @@ dev = [
 ]
 
 [project.scripts]
-naming_convention = "main:main"
+check_naming_convention = "main:main"
 
 [tool.setuptools]
 py-modules = ["main"]
