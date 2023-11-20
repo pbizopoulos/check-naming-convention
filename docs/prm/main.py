@@ -35,7 +35,7 @@ async def on_change_file_input(e) -> None:
     on_keyup_input_textarea(None)
 
 
-async def main() -> None:
+def main() -> None:
     path = Path("/nltk_data/tokenizers")
     path.mkdir(parents=True, exist_ok=True)
     zipfile.ZipFile('punkt.zip').extractall(path='/nltk_data/tokenizers/')
