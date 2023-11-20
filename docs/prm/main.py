@@ -10,17 +10,8 @@ from js import fetch
 import nltk
 from pathlib import Path
 import os, sys, io, zipfile
+from pyodide.http import pyfetch
 
-response = await fetch('https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip')
-js_buffer = await response.arrayBuffer()
-py_buffer = js_buffer.to_py()  # this is a memoryview
-stream = py_buffer.tobytes()  # now we have a bytes object
-d = Path("/nltk_data/tokenizers")
-d.mkdir(parents=True, exist_ok=True)
-Path('/nltk_data/tokenizers/punkt.zip').write_bytes(stream)
-zipfile.ZipFile('/nltk_data/tokenizers/punkt.zip').extractall(
-    path='/nltk_data/tokenizers/'
-)
 
 def on_keyup_input_textarea(_: None) -> None:
     document.getElementById("input-textarea").style.height = "1px"
@@ -44,7 +35,12 @@ async def on_change_file_input(e) -> None:
     on_keyup_input_textarea(None)
 
 
-def main() -> None:
+async def main() -> None:
+    path = Path("/nltk_data/tokenizers")
+    path.mkdir(parents=True, exist_ok=True)
+    response = await pyfetch('https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip')
+    await response.to_file(path)
+    zipfile.ZipFile('/nltk_data/tokenizers/punkt.zip').extractall(path='/nltk_data/tokenizers/')
     with Path("test_function.py").open() as file:
         document.getElementById("input-textarea").value = file.read()
     on_keyup_input_textarea(None)
