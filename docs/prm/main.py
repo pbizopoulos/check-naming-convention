@@ -38,9 +38,7 @@ async def on_change_file_input(e) -> None:
 async def main() -> None:
     path = Path("/nltk_data/tokenizers")
     path.mkdir(parents=True, exist_ok=True)
-    response = await pyfetch('https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip')
-    await response.to_file(path)
-    zipfile.ZipFile('/nltk_data/tokenizers/punkt.zip').extractall(path='/nltk_data/tokenizers/')
+    zipfile.ZipFile('punkt.zip').extractall(path='/nltk_data/tokenizers/')
     with Path("test_function.py").open() as file:
         document.getElementById("input-textarea").value = file.read()
     on_keyup_input_textarea(None)
