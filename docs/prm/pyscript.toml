@@ -1,0 +1,5 @@
+[[fetch]]
+from = "https://raw.githubusercontent.com/pbizopoulos/naming-convention/main/python/python/main.py"
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/pbizopoulos/naming-convention/main/python/prm/test_function.py"
