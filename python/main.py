@@ -63,9 +63,11 @@ class Tests(unittest.TestCase):
             check_naming_convention(file)
 
 
-if __name__ == "__main__":
-    unittest.main()
-else:
+def main() -> None:
     num_arguments_allowed = 2
     if len(sys.argv) == num_arguments_allowed:
         check_naming_convention(sys.argv[1])
+
+
+if __name__ == "__main__":
+    unittest.main()

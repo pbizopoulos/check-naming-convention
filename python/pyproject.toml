@@ -16,7 +16,7 @@ dev = [
 ]
 
 [project.scripts]
-check_naming_convention = "main:check_naming_convention"
+check_naming_convention = "main:main"
 
 [tool.setuptools]
 py-modules = ["main"]
