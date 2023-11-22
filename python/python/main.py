@@ -35,16 +35,17 @@ def check_naming_convention(code_input: str | TextIOWrapper) -> None:
         elif isinstance(node, ast.FunctionDef):
             tokens = node.name.split("_")
             pos_tags = nltk.pos_tag(tokens)
-            if len(pos_tags) < 2:  # noqa: PLR2004
-                warnings.warn(
-                    f"line: {node.lineno}, variable: {pos_tags}", stacklevel=1,
-                )
             if pos_tags[0][1] != "VB":
                 warnings.warn(
                     f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
                     stacklevel=1,
                 )
-            if pos_tags[1][1] != "NN":
+            if len(pos_tags) < 2:  # noqa: PLR2004
+                warnings.warn(
+                    f"line: {node.lineno}, variable: {pos_tags}",
+                    stacklevel=1,
+                )
+            elif pos_tags[1][1] != "NN":
                 warnings.warn(
                     f"line: {node.lineno}, variable name: {pos_tags[1][0]}",
                     stacklevel=1,
