@@ -14,7 +14,7 @@ cd python/python/ && make clean check all && cd ../..
 cd python/ && make clean check all && cd ..
 
 # Installation
-pip install https://github.com/pbizopoulos/check-naming-convention/tarball/main#subdirectory=python/python
+pip install https://github.com/pbizopoulos/check-naming-convention/tarball/main#subdirectory=python
 
 # Usage
 check_naming_convention main.py

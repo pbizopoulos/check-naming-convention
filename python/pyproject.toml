@@ -2,7 +2,7 @@
 dependencies = [
   "nltk==3.8.1"
 ]
-name = "UNKNOWN"
+name = "check-naming-convention"
 version = "0.0.0"
 
 [project.optional-dependencies]
@@ -14,3 +14,9 @@ dev = [
   "ssort==0.11.6",
   "toml-sort==0.23.1"
 ]
+
+[project.scripts]
+check_naming_convention = "main:check_naming_convention"
+
+[tool.setuptools]
+py-modules = ["main"]
