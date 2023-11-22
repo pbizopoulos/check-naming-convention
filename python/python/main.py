@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import sys
+import warnings
 from io import TextIOWrapper
 from os import environ
 from pathlib import Path
@@ -27,25 +28,26 @@ def check_naming_convention(code_input: str | TextIOWrapper) -> None:
                 pos_tags[0][1] == "NN"
                 and (len(pos_tags) == 1 or pos_tags[1][1].startswith(("JJ", "RB")))
             ):
-                msg = f"line: {node.lineno}, variable name: {pos_tags[0][0]}"
-                raise AssertionError(
-                    msg,
+                warnings.warn(
+                    f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
+                    stacklevel=1,
                 )
         elif isinstance(node, ast.FunctionDef):
             tokens = node.name.split("_")
             pos_tags = nltk.pos_tag(tokens)
             if len(pos_tags) < 2:  # noqa: PLR2004
-                msg = f"line: {node.lineno}, variable: {pos_tags}"
-                raise AssertionError(msg)
+                warnings.warn(
+                    f"line: {node.lineno}, variable: {pos_tags}", stacklevel=1,
+                )
             if pos_tags[0][1] != "VB":
-                msg = f"line: {node.lineno}, variable name: {pos_tags[0][0]}"
-                raise AssertionError(
-                    msg,
+                warnings.warn(
+                    f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
+                    stacklevel=1,
                 )
             if pos_tags[1][1] != "NN":
-                msg = f"line: {node.lineno}, variable name: {pos_tags[1][0]}"
-                raise AssertionError(
-                    msg,
+                warnings.warn(
+                    f"line: {node.lineno}, variable name: {pos_tags[1][0]}",
+                    stacklevel=1,
                 )
 
 
