@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import ast
-import sys
 import unittest
 import warnings
 from io import TextIOWrapper
@@ -64,9 +63,9 @@ class Tests(unittest.TestCase):
 
 
 def main() -> None:
-    num_arguments_allowed = 2
-    if len(sys.argv) == num_arguments_allowed:
-        check_naming_convention(sys.argv[1])
+    import fire
+
+    fire.Fire(check_naming_convention)
 
 
 if __name__ == "__main__":
