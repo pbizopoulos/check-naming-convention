@@ -1,0 +1,10 @@
+packages = [
+  "nltk",
+]
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/pbizopoulos/check-naming-convention/main/python/main.py"
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip"
+to_folder = "/home/pyodide/tmp/nltk_data/tokenizers"

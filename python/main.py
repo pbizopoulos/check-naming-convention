@@ -9,12 +9,12 @@ from pathlib import Path
 
 import nltk
 
-environ["NLTK_DATA"] = "tmp/"
-nltk.download("punkt")
-nltk.download("averaged_perceptron_tagger")
 
-
-def check_naming_convention(code_input: str | TextIOWrapper) -> None:
+def check_naming_convention(code_input: str | TextIOWrapper) -> None:  # noqa: C901
+    environ["NLTK_DATA"] = "tmp/"
+    if not Path("tmp/nltk_data").exists():
+        nltk.download("punkt")
+        nltk.download("averaged_perceptron_tagger")
     if isinstance(code_input, str):
         with Path(code_input).open() as file:
             root = ast.parse(file.read())

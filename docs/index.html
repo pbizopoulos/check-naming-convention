@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <title>Check naming convention</title>
+        <link href="data:," rel="icon">
+        <link href="https://pyscript.net/latest/pyscript.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        <py-config src="./prm/pyscript.toml"></py-config>
+    </head>
+
+    <body>
+        <nav>
+            <a href="https://github.com/pbizopoulos/check-naming-convention">Source code</a> | <a href="https://pbizopoulos.github.io">Home page</a> / <b>Check naming convention</b>
+        </nav>
+        <h3>Installation:</h3>
+        <code>pip install https://github.com/pbizopoulos/check-naming-convention/tarball/main#subdirectory=python</code>
+        <h3>Usage:</h3>
+        <code>check_naming_convention main.py</code>
+        <h3>Try online: </h3>
+        <div class="container">
+            <div class="column">
+                <input type="file" id="file-input">
+                <textarea class="form-control" id="input-textarea" spellcheck="false"></textarea>
+            </div>
+            <div class="column">
+                <pre id="output-pre"></pre>
+            </div>
+        </div>
+        <py-script src="./prm/main.py"></py-script>
+    </body>
+
+</html>
