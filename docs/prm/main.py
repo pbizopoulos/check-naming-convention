@@ -11,8 +11,8 @@ from main import check_naming_convention
 
 
 def main() -> None:
-    environ["NLTK_DATA"] = "tmp/"
-    nltk.data.path = ["tmp/"] + nltk.data.path
+    environ["NLTK_DATA"] = "tmp/nltk_data"
+    nltk.data.path = ["tmp/nltk_data"] + nltk.data.path
     zipfile.ZipFile('tmp/nltk_data/tokenizers/punkt.zip').extractall(
         path='tmp/nltk_data/tokenizers/'
     )
