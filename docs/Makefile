@@ -65,7 +65,6 @@ tmp/done: index.js tmp tmp/fullchain.pem
 		$$(test -t 0 && printf '%s' '--interactive --tty') \
 		--detach-keys 'ctrl-^,ctrl-^' \
 		--env STAGING=$(STAGING) \
-		-p 443:443 \
 		--rm \
 		--user $$(id -u):$$(id -g) \
 		--volume $$(pwd):/usr/src/app/ \
