@@ -1,4 +1,5 @@
 # Check naming convention for python
+https://pbizopoulos.github.io/check-naming-convention
 
 # Requirements
 POSIX Utilities
@@ -10,8 +11,12 @@ git clone https://github.com/pbizopoulos/check-naming-convention
 cd check-naming-convention/
 
 # Development
+cd docs/ && make clean check all && cd ..
 cd python/python/ && make clean check all && cd ../..
 cd python/ && make clean check all && cd ..
+
+# Staging
+cd docs/ && make STAGING=1
 
 # Installation
 pip install https://github.com/pbizopoulos/check-naming-convention/tarball/main#subdirectory=python

@@ -11,7 +11,7 @@ import nltk
 
 
 def check_naming_convention(code_input: str | TextIOWrapper) -> None:  # noqa: C901
-    environ["NLTK_DATA"] = "tmp/"
+    environ["NLTK_DATA"] = "tmp/nltk_data"
     if not Path("tmp/nltk_data").exists():
         nltk.download("punkt")
         nltk.download("averaged_perceptron_tagger")
