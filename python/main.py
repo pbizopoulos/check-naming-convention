@@ -54,12 +54,10 @@ def check_naming_convention(code_input: str | TextIOWrapper) -> None:  # noqa: C
 
 class Tests(unittest.TestCase):
     def test_function(self: Tests) -> None:
-        with Path("prm/test_function.py").open(encoding="utf-8") as file:
-            check_naming_convention(file)
+        check_naming_convention("prm/test_function.py")
 
     def test_variable(self: Tests) -> None:
-        with Path("prm/test_variable.py").open(encoding="utf-8") as file:
-            check_naming_convention(file)
+        check_naming_convention("prm/test_variable.py")
 
 
 def main() -> None:
