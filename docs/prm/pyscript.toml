@@ -8,3 +8,7 @@ from = "https://raw.githubusercontent.com/pbizopoulos/check-naming-convention/ma
 [[fetch]]
 from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip"
 to_folder = "/home/pyodide/tmp/nltk_data/tokenizers"
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/taggers/averaged_perceptron_tagger.zip"
+to_folder = "/home/pyodide/tmp/nltk_data/taggers"

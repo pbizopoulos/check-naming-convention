@@ -12,7 +12,10 @@ def main() -> None:
     zipfile.ZipFile('tmp/nltk_data/tokenizers/punkt.zip').extractall(
         path='tmp/nltk_data/tokenizers/'
     )
-    tokenizer = nltk.data.load('nltk:tokenizers/punkt/english.pickle')
+    zipfile.ZipFile('tmp/nltk_data/taggers/averaged_perceptron_tagger.zip').extractall(
+        path='tmp/nltk_data/taggers/'
+    )
+    tokenizer = nltk.data.load('tmp/nltk_data/tokenizers/punkt/english.pickle')
     output = tokenizer.tokenize('Hello. This is a test!')
     print(output)
 
