@@ -9,7 +9,7 @@ from shutil import copyfile
 import nltk
 
 
-def check_naming_convention(code_input: str | bytes) -> list[str]:
+def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
     warnings = []
     environ["NLTK_DATA"] = "tmp/nltk_data"
     if not Path("tmp/nltk_data").exists():
@@ -22,15 +22,16 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:
         root = ast.parse(code_input.decode())
     for node in ast.walk(root):
         if isinstance(node, ast.Assign):
-            tokens = node.targets[0].id.split("_")  # type: ignore[attr-defined]
-            pos_tags = nltk.pos_tag(tokens)
-            if not (
-                pos_tags[0][1] == "NN"
-                and (len(pos_tags) == 1 or pos_tags[1][1].startswith(("JJ", "RB")))
-            ):
-                warnings.append(
-                    f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
-                )
+            if isinstance(node.targets[0], ast.Name):
+                tokens = node.targets[0].id.split("_")
+                pos_tags = nltk.pos_tag(tokens)
+                if not (
+                    pos_tags[0][1] == "NN"
+                    and (len(pos_tags) == 1 or pos_tags[1][1].startswith(("JJ", "RB")))
+                ):
+                    warnings.append(
+                        f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
+                    )
         elif isinstance(node, ast.FunctionDef):
             tokens = node.name.split("_")
             pos_tags = nltk.pos_tag(tokens)
