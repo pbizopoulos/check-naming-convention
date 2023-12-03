@@ -23,7 +23,7 @@ def on_keyup_editor_input(_: None) -> None:
         output = check_naming_convention(input_.encode("utf-8"))
         editor_output.setValue(output.decode())
     except Exception as exception:  # noqa: BLE001
-        editor_output.setValue(exception)
+        editor_output.setValue(str(exception))
 
 
 async def on_change_file_input(e) -> None:  # type: ignore[no-untyped-def] # noqa: ANN001
