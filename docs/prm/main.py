@@ -1,34 +1,36 @@
-import io
+import warnings
 import zipfile
 from os import environ
 from pathlib import Path
 
 import nltk
-from js import document
+from js import ace, document
 from pyodide.ffi.wrappers import add_event_listener
 
-from main import check_naming_convention
+from main import check_naming_convention  # type: ignore[attr-defined]
+
+editor_input = ace.edit("editor-input")
+editor_input.setOption("maxLines", float("inf"))
+editor_output = ace.edit("editor-output")
+editor_output.setOption("maxLines", float("inf"))
+editor_output.setReadOnly(True)  # noqa: FBT003
+warnings.filterwarnings("error")
 
 
-def on_keyup_input_textarea(_: None) -> None:
-    document.getElementById("input-textarea").style.height = "1px"
-    document.getElementById(
-        "input-textarea",
-    ).style.height = f'{document.getElementById("input-textarea").scrollHeight}px'
-    input_ = document.getElementById("input-textarea").value
-    reader = io.BufferedReader(io.BytesIO(input_.encode("utf-8")))  # type: ignore[arg-type]
-    wrapper = io.TextIOWrapper(reader)
+def on_keyup_editor_input(_: None) -> None:
+    input_ = editor_input.getValue()
     try:
-        check_naming_convention(wrapper)
+        output = check_naming_convention(input_.encode("utf-8"))
+        editor_output.setValue(output.decode())
     except Exception as exception:  # noqa: BLE001
-        document.getElementById("output-pre").innerHTML = exception
+        editor_output.setValue(exception)
 
 
-async def on_change_file_input(e) -> None:
+async def on_change_file_input(e) -> None:  # type: ignore[no-untyped-def] # noqa: ANN001
     file_list = e.target.files
     first_item = file_list.item(0)
-    document.getElementById("input-textarea").value = await first_item.text()
-    on_keyup_input_textarea(None)
+    editor_input.setValue(await first_item.text())
+    on_keyup_editor_input(None)
 
 
 def main() -> None:
@@ -41,12 +43,12 @@ def main() -> None:
         path="tmp/nltk_data/taggers/",
     )
     with Path("main.py").open() as file:
-        document.getElementById("input-textarea").value = file.read()
-    on_keyup_input_textarea(None)
+        editor_input.setValue(file.read())
+    on_keyup_editor_input(None)
     add_event_listener(
-        document.getElementById("input-textarea"),
+        document.getElementById("editor-input"),
         "keyup",
-        on_keyup_input_textarea,
+        on_keyup_editor_input,
     )
     add_event_listener(
         document.getElementById("file-input"),

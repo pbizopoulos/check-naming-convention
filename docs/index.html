@@ -9,6 +9,7 @@
         <link href="https://pyscript.net/latest/pyscript.css" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
         <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.0/ace.min.js" integrity="sha512-5ur89G46zAPpH0kj/TDGeB/csR1UsUNmKUf4GXNmNOwM1SoMA3IJ85jYBoHQnfDLIkfydZtsxxmGpNsY+2plqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <py-config src="./prm/pyscript.toml"></py-config>
     </head>
 
@@ -16,18 +17,13 @@
         <nav>
             <a href="https://github.com/pbizopoulos/check-naming-convention">Source code</a> | <a href="https://pbizopoulos.github.io">Home page</a> / <b>Check naming convention</b>
         </nav>
-        <h3>Installation:</h3>
-        <code>pip install https://github.com/pbizopoulos/check-naming-convention/tarball/main#subdirectory=python</code>
-        <h3>Usage:</h3>
-        <code>check_naming_convention main.py</code>
-        <h3>Try online: </h3>
         <div class="container">
             <div class="column">
                 <input type="file" id="file-input">
-                <textarea class="form-control" id="input-textarea" spellcheck="false"></textarea>
+                <div id="editor-input"></div>
             </div>
             <div class="column">
-                <pre id="output-pre"></pre>
+                <div id="editor-output"></div>
             </div>
         </div>
         <py-script src="./prm/main.py"></py-script>
