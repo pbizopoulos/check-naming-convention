@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import ast
 import unittest
-import warnings
 from os import environ
 from pathlib import Path
 from shutil import copyfile
@@ -10,7 +9,8 @@ from shutil import copyfile
 import nltk
 
 
-def check_naming_convention(code_input: str | bytes) -> None:
+def check_naming_convention(code_input: str | bytes) -> list[str]:
+    warnings = []
     environ["NLTK_DATA"] = "tmp/nltk_data"
     if not Path("tmp/nltk_data").exists():
         nltk.download("punkt")
@@ -28,38 +28,37 @@ def check_naming_convention(code_input: str | bytes) -> None:
                 pos_tags[0][1] == "NN"
                 and (len(pos_tags) == 1 or pos_tags[1][1].startswith(("JJ", "RB")))
             ):
-                warnings.warn(
+                warnings.append(
                     f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
-                    stacklevel=1,
                 )
         elif isinstance(node, ast.FunctionDef):
             tokens = node.name.split("_")
             pos_tags = nltk.pos_tag(tokens)
             if pos_tags[0][1] != "VB":
-                warnings.warn(
+                warnings.append(
                     f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
-                    stacklevel=1,
                 )
             if len(pos_tags) < 2:  # noqa: PLR2004
-                warnings.warn(
+                warnings.append(
                     f"line: {node.lineno}, variable: {pos_tags}",
-                    stacklevel=1,
                 )
             elif pos_tags[1][1] != "NN":
-                warnings.warn(
+                warnings.append(
                     f"line: {node.lineno}, variable name: {pos_tags[1][0]}",
-                    stacklevel=1,
                 )
+    return warnings
 
 
 class Tests(unittest.TestCase):
     def test_check_naming_convention_bytes_input(self: Tests) -> None:
         with Path("prm/main.py").open(encoding="utf-8") as file:
-            check_naming_convention(file.read().encode())
+            output = check_naming_convention(file.read().encode())
+        assert len(output) == 0
 
     def test_check_naming_convention_file_input(self: Tests) -> None:
         copyfile("prm/main.py", "tmp/main_processed.py")
-        check_naming_convention("tmp/main_processed.py")
+        output = check_naming_convention("tmp/main_processed.py")
+        assert len(output) == 0
 
 
 def main() -> None:

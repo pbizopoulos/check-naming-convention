@@ -19,11 +19,8 @@ warnings.filterwarnings("error")
 
 def on_keyup_editor_input(_: None) -> None:
     input_ = editor_input.getValue()
-    try:
-        output = check_naming_convention(input_.encode("utf-8"))
-        editor_output.setValue(output.decode())
-    except Exception as exception:  # noqa: BLE001
-        editor_output.setValue(str(exception))
+    output = check_naming_convention(input_.encode("utf-8"))
+    editor_output.setValue("\n".join(output))
 
 
 async def on_change_file_input(e) -> None:  # type: ignore[no-untyped-def] # noqa: ANN001
