@@ -20,7 +20,7 @@ warnings.filterwarnings("error")
 def on_keyup_editor_input(_: None) -> None:
     input_ = editor_input.getValue()
     try:
-        output = check_naming_convention(input_.encode("utf-8"))
+        output = check_naming_convention(input_)
         editor_output.setValue(output.decode())
     except Exception as exception:  # noqa: BLE001
         editor_output.setValue(exception)

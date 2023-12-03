@@ -3,14 +3,14 @@ from __future__ import annotations
 import ast
 import unittest
 import warnings
-from io import TextIOWrapper
 from os import environ
 from pathlib import Path
+from shutil import copyfile
 
 import nltk
 
 
-def check_naming_convention(code_input: str | TextIOWrapper) -> None:  # noqa: C901
+def check_naming_convention(code_input: str | bytes) -> None:
     environ["NLTK_DATA"] = "tmp/nltk_data"
     if not Path("tmp/nltk_data").exists():
         nltk.download("punkt")
@@ -18,8 +18,8 @@ def check_naming_convention(code_input: str | TextIOWrapper) -> None:  # noqa: C
     if isinstance(code_input, str):
         with Path(code_input).open() as file:
             root = ast.parse(file.read())
-    elif isinstance(code_input, TextIOWrapper):
-        root = ast.parse(code_input.read())
+    else:
+        root = ast.parse(code_input.decode())
     for node in ast.walk(root):
         if isinstance(node, ast.Name):
             tokens = nltk.word_tokenize(node.id)
@@ -53,11 +53,13 @@ def check_naming_convention(code_input: str | TextIOWrapper) -> None:  # noqa: C
 
 
 class Tests(unittest.TestCase):
-    def test_function(self: Tests) -> None:
-        check_naming_convention("prm/test_function.py")
+    def test_check_naming_convention_bytes_input(self: Tests) -> None:
+        with Path("prm/main.py").open(encoding="utf-8") as file:
+            check_naming_convention(file.read().encode())
 
-    def test_variable(self: Tests) -> None:
-        check_naming_convention("prm/test_variable.py")
+    def test_check_naming_convention_file_input(self: Tests) -> None:
+        copyfile("prm/main.py", "tmp/main_processed.py")
+        check_naming_convention("tmp/main_processed.py")
 
 
 def main() -> None:
