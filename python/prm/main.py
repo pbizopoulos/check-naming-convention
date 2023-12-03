@@ -1,5 +1,5 @@
 def get_number():
-    variable_first = 42
-    return variable_first
+    output_first = 42
+    return output_first
 
 get_number()

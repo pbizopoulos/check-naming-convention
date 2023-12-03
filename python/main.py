@@ -21,8 +21,8 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:
     else:
         root = ast.parse(code_input.decode())
     for node in ast.walk(root):
-        if isinstance(node, ast.Name):
-            tokens = nltk.word_tokenize(node.id)
+        if isinstance(node, ast.Assign):
+            tokens = node.targets[0].id.split("_")  # type: ignore[attr-defined]
             pos_tags = nltk.pos_tag(tokens)
             if not (
                 pos_tags[0][1] == "NN"
