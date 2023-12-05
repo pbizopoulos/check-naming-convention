@@ -36,11 +36,11 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                     f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
                 )
         elif isinstance(node, ast.FunctionDef):
-            if node.name in ["main", "test"]:
+            if node.name == "main":
                 continue
             tokens = node.name.split("_")
             pos_tags = nltk.pos_tag(tokens)
-            if pos_tags[0][1] != "VB":
+            if pos_tags[0][1] != "VB" and tokens[0] != "test":
                 warnings.append(
                     f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
                 )
