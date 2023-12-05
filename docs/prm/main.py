@@ -39,6 +39,9 @@ def main() -> None:
     zipfile.ZipFile("tmp/nltk_data/tokenizers/punkt.zip").extractall(
         path="tmp/nltk_data/tokenizers/",
     )
+    zipfile.ZipFile("tmp/nltk_data/corpora/wordnet.zip").extractall(
+        path="tmp/nltk_data/corpora/",
+    )
     zipfile.ZipFile("tmp/nltk_data/corpora/words.zip").extractall(
         path="tmp/nltk_data/corpora/",
     )

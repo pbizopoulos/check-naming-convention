@@ -1,4 +1,3 @@
-warnings = 1
 def get_number():
     output_first = 42
     return output_first

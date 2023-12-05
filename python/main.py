@@ -7,14 +7,19 @@ from pathlib import Path
 from shutil import copyfile
 
 import nltk
+from nltk.stem.wordnet import WordNetLemmatizer
+
+Lem = WordNetLemmatizer()
 
 
 def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901,PLR0912
     warnings = []
     environ["NLTK_DATA"] = "tmp/nltk_data"
     if not Path("tmp/nltk_data").exists():
-        nltk.download("punkt")
         nltk.download("averaged_perceptron_tagger")
+        nltk.download("punkt")
+        nltk.download("wordnet")
+        nltk.download("words")
     if isinstance(code_input, str):
         with Path(code_input).open() as file:
             root = ast.parse(file.read())
@@ -24,6 +29,13 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
         if isinstance(node, ast.Assign):
             if isinstance(node.targets[0], ast.Name):
                 tokens = node.targets[0].id.split("_")
+                words = nltk.corpus.words.words()
+                for token in tokens:
+                    if token not in words:
+                        token_lemmatized = Lem.lemmatize(token)
+                        warnings.append(
+                            f"line: {node.lineno}, token: {token_lemmatized} not in dictionary",  # noqa: E501
+                        )
                 pos_tags = nltk.pos_tag(tokens)
                 if (pos_tags[0][1] == "NNS") and len(pos_tags) == 1:
                     continue

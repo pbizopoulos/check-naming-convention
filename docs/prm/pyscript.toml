@@ -14,5 +14,9 @@ from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/token
 to_folder = "/home/pyodide/tmp/nltk_data/tokenizers"
 
 [[fetch]]
+from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/wordnet.zip"
+to_folder = "/home/pyodide/tmp/nltk_data/corpora"
+
+[[fetch]]
 from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/words.zip"
 to_folder = "/home/pyodide/tmp/nltk_data/corpora"
