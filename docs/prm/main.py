@@ -33,11 +33,14 @@ async def on_change_file_input(e) -> None:  # type: ignore[no-untyped-def] # noq
 def main() -> None:
     environ["NLTK_DATA"] = "tmp/nltk_data"
     nltk.data.path = ["tmp/nltk_data", *nltk.data.path]
+    zipfile.ZipFile("tmp/nltk_data/taggers/averaged_perceptron_tagger.zip").extractall(
+        path="tmp/nltk_data/taggers/",
+    )
     zipfile.ZipFile("tmp/nltk_data/tokenizers/punkt.zip").extractall(
         path="tmp/nltk_data/tokenizers/",
     )
-    zipfile.ZipFile("tmp/nltk_data/taggers/averaged_perceptron_tagger.zip").extractall(
-        path="tmp/nltk_data/taggers/",
+    zipfile.ZipFile("tmp/nltk_data/corpora/words.zip").extractall(
+        path="tmp/nltk_data/corpora/",
     )
     with Path("main.py").open() as file:
         editor_input.setValue(file.read())
