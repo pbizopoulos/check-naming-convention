@@ -9,7 +9,7 @@ from shutil import copyfile
 import nltk
 from nltk.stem.wordnet import WordNetLemmatizer
 
-Lem = WordNetLemmatizer()
+word_net_lemmatizer = WordNetLemmatizer()
 
 
 def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901,PLR0912
@@ -32,7 +32,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                 words = nltk.corpus.words.words()
                 for token in tokens:
                     if token not in words:
-                        token_lemmatized = Lem.lemmatize(token)
+                        token_lemmatized = word_net_lemmatizer.lemmatize(token)
                         warnings.append(
                             f"line: {node.lineno}, {token_lemmatized} not in dictionary",  # noqa: E501
                         )
