@@ -20,33 +20,32 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
         nltk.download("punkt")
         nltk.download("wordnet")
         nltk.download("words")
+    words = nltk.corpus.words.words()
     if isinstance(code_input, str):
         with Path(code_input).open() as file:
             root = ast.parse(file.read())
     else:
         root = ast.parse(code_input.decode())
     for node in ast.walk(root):
-        if isinstance(node, ast.Assign):
-            if isinstance(node.targets[0], ast.Name):
-                tokens = node.targets[0].id.split("_")
-                words = nltk.corpus.words.words()
-                for token in tokens:
-                    if token not in words:
-                        token_lemmatized = word_net_lemmatizer.lemmatize(token)
-                        warnings.append(
-                            f"line: {node.lineno}, {token_lemmatized} not in dictionary",  # noqa: E501
-                        )
-                pos_tags = nltk.pos_tag(tokens)
-                if (pos_tags[0][1] == "NNS") and len(pos_tags) == 1:
+        if isinstance(node, ast.Assign) and isinstance(node.targets[0], ast.Name):
+            tokens = node.targets[0].id.split("_")
+            for token in tokens:
+                token_lemmatized = word_net_lemmatizer.lemmatize(token)
+                if token_lemmatized not in words:
+                    warnings.append(
+                        f"Line: {node.lineno}, {token_lemmatized} not in dictionary.",
+                    )
+            pos_tags = nltk.pos_tag(tokens)
+            if (pos_tags[0][1] == "NNS") and len(pos_tags) == 1:
+                continue
+            if pos_tags[0][1] == "NN":
+                if len(pos_tags) == 1:
                     continue
-                if pos_tags[0][1] == "NN":
-                    if len(pos_tags) == 1:
-                        continue
-                    if pos_tags[1][1].startswith(("JJ", "RB")):
-                        continue
-                warnings.append(
-                    f"line: {node.lineno}, {pos_tags[0][0]} is wrong",
-                )
+                if pos_tags[1][1].startswith(("JJ", "RB")):
+                    continue
+            warnings.append(
+                f"Line: {node.lineno}, {pos_tags[0][0]} is wrong.",
+            )
         elif isinstance(node, ast.FunctionDef):
             if node.name == "main":
                 continue
@@ -54,15 +53,15 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
             pos_tags = nltk.pos_tag(tokens)
             if pos_tags[0][1] != "VB" and tokens[0] != "test":
                 warnings.append(
-                    f"line: {node.lineno}, {pos_tags[0][0]} is wrong",
+                    f"Line: {node.lineno}, {pos_tags[0][0]} is wrong.",
                 )
             if len(pos_tags) < 2:  # noqa: PLR2004
                 warnings.append(
-                    f"line: {node.lineno}, variable: {pos_tags}",
+                    f"Line: {node.lineno}, {pos_tags} is wrong.",
                 )
             elif pos_tags[1][1] != "NN":
                 warnings.append(
-                    f"line: {node.lineno}, {pos_tags[1][0]} is wrong",
+                    f"Line: {node.lineno}, {pos_tags[1][0]} is wrong.",
                 )
     return warnings
 
