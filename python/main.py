@@ -34,7 +34,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                     if token not in words:
                         token_lemmatized = Lem.lemmatize(token)
                         warnings.append(
-                            f"line: {node.lineno}, token: {token_lemmatized} not in dictionary",  # noqa: E501
+                            f"line: {node.lineno}, {token_lemmatized} not in dictionary",  # noqa: E501
                         )
                 pos_tags = nltk.pos_tag(tokens)
                 if (pos_tags[0][1] == "NNS") and len(pos_tags) == 1:
@@ -45,7 +45,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                     if pos_tags[1][1].startswith(("JJ", "RB")):
                         continue
                 warnings.append(
-                    f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
+                    f"line: {node.lineno}, {pos_tags[0][0]} is wrong",
                 )
         elif isinstance(node, ast.FunctionDef):
             if node.name == "main":
