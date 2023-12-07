@@ -54,7 +54,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
             pos_tags = nltk.pos_tag(tokens)
             if pos_tags[0][1] != "VB" and tokens[0] != "test":
                 warnings.append(
-                    f"line: {node.lineno}, variable name: {pos_tags[0][0]}",
+                    f"line: {node.lineno}, {pos_tags[0][0]} is wrong",
                 )
             if len(pos_tags) < 2:  # noqa: PLR2004
                 warnings.append(
@@ -62,7 +62,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                 )
             elif pos_tags[1][1] != "NN":
                 warnings.append(
-                    f"line: {node.lineno}, variable name: {pos_tags[1][0]}",
+                    f"line: {node.lineno}, {pos_tags[1][0]} is wrong",
                 )
     return warnings
 
