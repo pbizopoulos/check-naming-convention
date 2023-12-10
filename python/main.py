@@ -45,11 +45,11 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                     continue
                 if not pos_tags[1][1].startswith(("JJ", "RB")):
                     warnings.append(
-                        f"Line: {node.lineno}, {pos_tags[1][1]} should be an adjective or an adverb.",  # noqa: E501
+                        f"Line: {node.lineno}, {tokens[1]} should be an adjective or an adverb.",  # noqa: E501
                     )
             else:
                 warnings.append(
-                    f"Line: {node.lineno}, {pos_tags[0][1]} should be a noun.",
+                    f"Line: {node.lineno}, {tokens[0]} should be a noun.",
                 )
         elif isinstance(node, ast.FunctionDef):
             if node.name == "main":
@@ -58,7 +58,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
             pos_tags = nltk.pos_tag(tokens)
             if pos_tags[0][1] != "VB" and tokens[0] != "test":
                 warnings.append(
-                    f"Line: {node.lineno}, {pos_tags[0][0]} should be a verb.",
+                    f"Line: {node.lineno}, {tokens[0]} should be a verb.",
                 )
             if len(pos_tags) < 2:  # noqa: PLR2004
                 warnings.append(
@@ -66,7 +66,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                 )
             elif pos_tags[1][1] != "NN":
                 warnings.append(
-                    f"Line: {node.lineno}, {pos_tags[1][1]} should be a noun.",
+                    f"Line: {node.lineno}, {tokens[1]} should be a noun.",
                 )
     return warnings
 
