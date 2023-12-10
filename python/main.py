@@ -40,7 +40,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                 warnings.append(
                     f"Line: {node.lineno}, {node.targets[0].id} starts with a plurar noun so it must contain only one token.",  # noqa: E501
                 )
-            if pos_tags[0][1] in "NN":
+            elif pos_tags[0][1] in "NN":
                 if len(pos_tags) == 1:
                     continue
                 if not pos_tags[1][1].startswith(("JJ", "RB")):
@@ -56,7 +56,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                 continue
             tokens = node.name.split("_")
             pos_tags = nltk.pos_tag(tokens)
-            if pos_tags[0][1] != "VB" and tokens[0] != "test":
+            if pos_tags[0][1] != "VB" and tokens[0] not in ["check", "test"]:
                 warnings.append(
                     f"Line: {node.lineno}, {tokens[0]} should be a verb.",
                 )
