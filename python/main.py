@@ -36,16 +36,21 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                         f"Line: {node.lineno}, {token_lemmatized} not in dictionary.",
                     )
             pos_tags = nltk.pos_tag(tokens)
-            if (pos_tags[0][1] == "NNS") and len(pos_tags) == 1:
-                continue
-            if pos_tags[0][1] == "NN":
+            if pos_tags[0][1] == "NNS" and len(pos_tags) != 1:
+                warnings.append(
+                    f"Line: {node.lineno}, {node.targets[0].id} starts with a plurar noun so it must contain only one token.",  # noqa: E501
+                )
+            if pos_tags[0][1] in "NN":
                 if len(pos_tags) == 1:
                     continue
-                if pos_tags[1][1].startswith(("JJ", "RB")):
-                    continue
-            warnings.append(
-                f"Line: {node.lineno}, {pos_tags[0][0]} is wrong.",
-            )
+                if not pos_tags[1][1].startswith(("JJ", "RB")):
+                    warnings.append(
+                        f"Line: {node.lineno}, {pos_tags[1][1]} should be an adjective or an adverb.",  # noqa: E501
+                    )
+            else:
+                warnings.append(
+                    f"Line: {node.lineno}, {pos_tags[0][1]} should be a noun.",
+                )
         elif isinstance(node, ast.FunctionDef):
             if node.name == "main":
                 continue
@@ -53,15 +58,15 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
             pos_tags = nltk.pos_tag(tokens)
             if pos_tags[0][1] != "VB" and tokens[0] != "test":
                 warnings.append(
-                    f"Line: {node.lineno}, {pos_tags[0][0]} is wrong.",
+                    f"Line: {node.lineno}, {pos_tags[0][0]} should be a verb.",
                 )
             if len(pos_tags) < 2:  # noqa: PLR2004
                 warnings.append(
-                    f"Line: {node.lineno}, {pos_tags} is wrong.",
+                    f"Line: {node.lineno}, {node.name} should contain more than one token.",  # noqa: E501
                 )
             elif pos_tags[1][1] != "NN":
                 warnings.append(
-                    f"Line: {node.lineno}, {pos_tags[1][0]} is wrong.",
+                    f"Line: {node.lineno}, {pos_tags[1][1]} should be a noun.",
                 )
     return warnings
 
