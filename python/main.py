@@ -36,7 +36,9 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                         f"Line: {node.lineno}, {token_lemmatized} not in dictionary.",
                     )
             pos_tags = nltk.pos_tag(tokens)
-            if pos_tags[0][1] == "NNS" and len(pos_tags) != 1:
+            if pos_tags[0][1] == "NNS":
+                if len(pos_tags) == 1:
+                    continue
                 warnings.append(
                     f"Line: {node.lineno}, {node.targets[0].id} starts with a plurar noun so it must contain only one token.",  # noqa: E501
                 )
