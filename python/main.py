@@ -58,7 +58,7 @@ def check_naming_convention(code_input: str | bytes) -> list[str]:  # noqa: C901
                 continue
             tokens = node.name.split("_")
             pos_tags = nltk.pos_tag(tokens)
-            if pos_tags[0][1] != "VB" and tokens[0] not in ["check", "test"]:
+            if pos_tags[0][1] != "VB":
                 warnings.append(
                     f"Line: {node.lineno}, {tokens[0]} should be a verb.",
                 )
