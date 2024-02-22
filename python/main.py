@@ -77,12 +77,14 @@ class Tests(unittest.TestCase):
     def test_check_naming_convention_bytes_input(self: Tests) -> None:
         with Path("prm/main.py").open(encoding="utf-8") as file:
             output = check_naming_convention(file.read().encode())
-        assert len(output) == 0
+        if len(output) != 0:
+            raise AssertionError
 
     def test_check_naming_convention_file_input(self: Tests) -> None:
         copyfile("prm/main.py", "tmp/main_processed.py")
         output = check_naming_convention("tmp/main_processed.py")
-        assert len(output) == 0
+        if len(output) != 0:
+            raise AssertionError
 
 
 def main() -> None:
