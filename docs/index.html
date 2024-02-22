@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <title>Check naming convention</title>
+        <link href="data:," rel="icon">
+        <link href="https://pyscript.net/latest/pyscript.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.0/ace.min.js" integrity="sha512-5ur89G46zAPpH0kj/TDGeB/csR1UsUNmKUf4GXNmNOwM1SoMA3IJ85jYBoHQnfDLIkfydZtsxxmGpNsY+2plqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <py-config src="./prm/pyscript.toml"></py-config>
+    </head>
+
+    <body>
+        <nav>
+            <a href="https://github.com/pbizopoulos/check-naming-convention">Source code</a> | <a href="https://pbizopoulos.github.io">Home page</a> / <b>Check naming convention</b>
+        </nav>
+        <div class="container">
+            <div class="column">
+                <input type="file" id="file-input">
+                <div id="editor-input"></div>
+            </div>
+            <div class="column">
+                <div id="editor-output"></div>
+            </div>
+        </div>
+        <py-script src="./prm/main.py"></py-script>
+    </body>
+
+</html>

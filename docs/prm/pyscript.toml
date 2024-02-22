@@ -1,0 +1,22 @@
+packages = [
+  "nltk"
+]
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/pbizopoulos/check-naming-convention/main/python/main.py"
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/taggers/averaged_perceptron_tagger.zip"
+to_folder = "/home/pyodide/tmp/nltk_data/taggers"
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip"
+to_folder = "/home/pyodide/tmp/nltk_data/tokenizers"
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/wordnet.zip"
+to_folder = "/home/pyodide/tmp/nltk_data/corpora"
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/words.zip"
+to_folder = "/home/pyodide/tmp/nltk_data/corpora"
