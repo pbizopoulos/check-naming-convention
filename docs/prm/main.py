@@ -13,7 +13,7 @@ editor_input = ace.edit("editor-input")
 editor_input.setOption("maxLines", float("inf"))
 editor_output = ace.edit("editor-output")
 editor_output.setOption("maxLines", float("inf"))
-editor_output.setReadOnly(True)  # noqa: FBT003
+editor_output.setReadOnly(True)
 warnings.filterwarnings("error")
 
 
