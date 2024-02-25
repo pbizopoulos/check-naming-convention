@@ -18,7 +18,7 @@ cd python/ && make clean check all && cd ..
 cd docs/ && make STAGING=1
 
 # Installation
-pip install https://github.com/pbizopoulos/check-naming-convention/tarball/main#subdirectory=python
+pip install https://api.github.com/repos/pbizopoulos/check-naming-convention/tarball/main#subdirectory=python
 
 # Usage
 check_naming_convention main.py
