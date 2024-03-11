@@ -8,11 +8,18 @@
         <link href="data:," rel="icon">
         <link rel="stylesheet" href="https://pyscript.net/releases/2024.2.1/core.css">
         <link href="style.css" rel="stylesheet">
+        <script type="module">
+            const loading = document.getElementById('loading');
+            addEventListener('py:ready', () => loading.close());
+            loading.showModal();
+
+        </script>
         <script type="module" src="https://pyscript.net/releases/2024.2.1/core.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.6/ace.min.js" integrity="sha512-kiECX53fzPhY5cnGzxTUZUOefsjR7gY3SD2OOgcsxZ0nAMZ3e+lkqxhXzGAFm05KjIaQ49/OyNryGTcbLb2V9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.min.js" integrity="sha512-GQpIYSKNIPIC763JKTNALj+t18/nfLdzw5gITgFGa31aK/4NmjyPKsfqrjh7CuzpJaG3nqEleeVcWUhHad9Axg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
 
     <body>
+        <dialog id="loading">Loading...</dialog>
         <nav>
             <a href="https://github.com/pbizopoulos/check-naming-convention">Source code</a> | <a href="https://pbizopoulos.github.io">Home page</a> / <b>Check naming convention</b>
         </nav>
